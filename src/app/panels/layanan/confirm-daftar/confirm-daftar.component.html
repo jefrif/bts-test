@@ -1,0 +1,154 @@
+<!--
+<div class="grid">
+  <div class="col-12">
+    &lt;!&ndash; md:col-6"&ndash;&gt;
+    <div class="card">
+      <h4>Empty Page</h4>
+
+      <div class="flex justify-content-start flex-wrap card-container blue-container">
+        <div class="flex align-items-start justify-content-start w-8rem h-4rem m-2">
+          <label>Tanggal (hari ini):</label>
+        </div>
+        <div class="flex align-items-start justify-content-start w-8rem h-4rem m-2">
+          <span>{{ antrianDisplay.tglNow | date: 'dd-MM-yyyy'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<p-card [header]="labelInfo" #pnl>
+  <div class="grid mr-1">
+    <div class="col-12 md:col-12 lg:col-5">
+      <div class="grid grid-nogutter">
+        <div class="flex align-items-center col-12 md:col-6 lg:col-5 mb-2">
+          <label>Tanggal (hari ini):</label>
+        </div>
+        <div class="flex align-items-center col-12 md:col-6 lg:col-7 mb-2 pl-3">
+          <span>{{ antrianDisplay.tglNow | date: 'dd-MM-yyyy'}}</span>
+        </div>
+        <!--
+              <div class="col-12" *ngIf="showListKlinik">
+                <div class="col-8 ui-sm-12">
+                  <p-dropdown [options]="OptKlinik"
+                              #idKlinik
+                              [(ngModel)]="selectedKlinik"
+                              name="idKlinik"
+                              filter="filter"
+                              (onChange)="onChangeKlinik()"
+                              [autoWidth]="false"
+                              [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+              </div>
+        -->
+        <div class="flex align-items-center col-12 md:col-6 lg:col-5 mb-2">
+          <label>Tanggal pendaftaran:</label>
+        </div>
+        <div class="flex align-items-center col-12 md:col-6 lg:col-7 mb-2">
+          <p-calendar
+              dateFormat="dd-mm-yy"
+              [(ngModel)]="tanggalDaftar"
+              (onSelect)="onSelectTgl($event)"
+              [showIcon]="true">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-12 lg:col-5">
+      <p-fieldset legend="Pasien Yang Mendaftar">
+        <div class="grid grid-nogutter">
+          <div class="flex align-items-center col-5 mb-2">
+            <label>No. Rekam Medik:</label>
+          </div>
+          <div class="flex align-items-center col-7 mb-2">
+            <input type="text"
+                   pInputText
+                   class="md:col-12"
+                   [(ngModel)]="antrianDisplay.noRM"
+                   [readOnly]="true"
+                   #noRM>
+          </div>
+        </div>
+        <div class="grid grid-nogutter">
+          <div class="flex align-items-center col-5 mb-2">
+            <label>Nama:</label>
+          </div>
+          <div class="flex align-items-center col-7 mb-2">
+            <input type="text"
+                   pInputText
+                   class="md:col-12"
+                   [(ngModel)]="antrianDisplay.nama"
+                   [readOnly]="true"
+                   #nama>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+
+    <div class="col-12 md:col-12 lg:col-2">
+      <div class="grid my-4">
+        <button pButton *ngIf="accessView?.ins"
+                type="button" label="{{ labelButton }}"
+                icon="ui-icon-monetization-on" class="w-full"
+                style="margin-bottom:10px;" (click)="onModalBayar()">
+        </button>
+      </div>
+      <div class="grid mb-4">
+        <button pButton type="button"
+                label="Batal" icon="ui-icon-clear"
+                (click)="btnBatal()" style="margin-bottom:10px;"
+                class="bg-red-500 w-full">
+        </button>
+      </div>
+      <div class="grid mb-4">
+        <button pButton type="button"
+                label="Pendaftaran" icon="ui-icon-face"
+                (click)="onClickPendaftaran()" style="margin-bottom:10px;"
+                class="bg-teal-500 w-full">
+        </button>
+      </div>
+      <div class="grid mb-4">
+        <button pButton type="button"
+                label="Status BPJS" icon="ui-icon-card-membership"
+                (click)="onClickStatusBpjs()" style="margin-bottom:6px;"
+                class="bg-orange-500 w-full">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-nogutter" style="margin-top: 15px;">
+    <p-table [value]="listAntrian" selectionMode="single" class="w-full"
+             responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}"
+             (onRowSelect)="onRowSelected($event)" [paginator]="true" [rows]="10"
+             dataKey="noIndex" [selection]="antrianSelected">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>No</th>
+          <th>No. Rekam Medik</th>
+          <th>Name</th>
+          <th>Waktu Daftar</th>
+          <th>{{colTitleUnitKlinik}}</th>
+          <th>Asuransi</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-antrian let-i="rowIndex">
+        <tr [pSelectableRow]="antrian">
+          <td>{{i + 1}}</td>
+          <td>{{ antrian.noRm }}</td>
+          <td>{{ antrian.nama }}</td>
+          <td>{{ antrian.waktuBooking | date: 'dd MMM yyyy HH:mm:ss'}}</td>
+          <td>{{ antrian.namaUnitKlinik }}</td>
+          <td>{{ antrian.namaAsuransi }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-card>
+
+<p-blockUI [blocked]="blockedAdmin" [target]="pnl">
+  <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+</p-blockUI>

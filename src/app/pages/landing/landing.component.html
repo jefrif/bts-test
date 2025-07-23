@@ -1,0 +1,98 @@
+
+<!--
+<p-toolbar styleClass="p-mb-4">
+  <ng-template pTemplate="left">
+    <span style="font-size: 1.5rem; font-weight: bold; color: darkcyan">Arsip Digital</span>
+&lt;!&ndash;
+    <i class="material-icons mi-menu p-ml-4" (click)="onMenuButtonClick($event)"
+       style="cursor: pointer">
+    </i>
+&ndash;&gt;
+    <a href="/fexpr">
+      <i class="material-icons mi-account-tree p-ml-2" style="cursor: pointer">
+      </i>
+    </a>
+    &lt;!&ndash;    mr = margin right&ndash;&gt;
+&lt;!&ndash;
+    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+            (click)="onMenuButtonClick($event)"></button>
+    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+            (click)="onSelectHome()"></button>
+&ndash;&gt;
+  </ng-template>
+
+  <ng-template pTemplate="right">
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" [(ngModel)]="txtSearch"/>
+    </span>
+    <button pButton pRipple label="Search" icon="pi pi-search" class="p-button-help p-ml-2"
+            (click)="onClickSearch()"></button>
+    &lt;!&ndash;
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help p-ml-2"
+                (click)="onClickTest()"></button>
+    &ndash;&gt;
+  </ng-template>
+</p-toolbar>
+-->
+
+<p-menubar [model]="mbItems">
+  <ng-template pTemplate="start">
+    <img src="assets/layout/images/ibadi.png" height="32" class="p-mr-2">
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <span class="p-input-icon-left" *ngIf="userName">
+        <label>user: {{userName}}</label>
+    </span>
+    <span class="p-input-icon-left">
+        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    </span>
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search" [(ngModel)]="txtSearch"/>
+    </span>
+    <button pButton pRipple label="Search" icon="pi pi-search" class="p-button-help p-ml-2"
+            (click)="onClickSearch()"></button>
+  </ng-template>
+</p-menubar>
+
+<!--
+<p-sidebar [(visible)]="sidebarActive" position="left"
+           styleClass="p-sidebar-md" (onHide)="onHideSideBar()">
+  <p-panelMenu [model]="items" [style]="{'width':'250px'}"></p-panelMenu>
+</p-sidebar>
+-->
+
+<div class="p-grid">
+  <!--
+    <div class="p-col-fixed" [style]="{width: '250px', display: sideDisplay}"
+         (click)="onClickSidePanel($event)">
+      <p-panelMenu [model]="items" [style]="{'width':'240px'}"></p-panelMenu>
+    </div>
+  -->
+  <div class="p-col">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- vw = %
+ default wd = 50vw, and <= 960px: wd = 75vw, and <= 640px wd = 100%
+ -->
+<p-dialog [(visible)]="displayInfo" [modal]="true" [style]="{width: '25vw'}"
+          [draggable]="false" [resizable]="false" [breakpoints]="{'960px': '75vw', '640px': '100vw'}">
+  <ng-template pTemplate="header">
+    Info
+  </ng-template>
+  <p class="p-m-2">Arsip Digital v0.71b20240628</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayInfo=false" label="OK" styleClass="p-button-text">
+    </p-button>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>
+
+<p-blockUI [blocked]="blocked">
+  <i class="pi pi-spin pi-spinner" style="font-size: 4rem"></i>
+</p-blockUI>

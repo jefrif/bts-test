@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+@import "assets/demo/styles/code.scss";
+
+/* Material */
+@import 'node_modules/material-icons/iconfont/filled.css';
+@import 'node_modules/material-icons/css/material-icons.min.css';
+
+/* from assets/layout/styles/theme/lara-light-indigo/theme.css  linked: index.html */
+:root {
+  --surface-ground:#dfeaf7;
+}
+
+.layout-topbar {
+  background-color: #00BCD4;
+}
+
+body {
+  app-root {
+    app-layout {
+      div {
+        app-topbar {
+          div {
+            div {
+              button :hover {
+                i {
+                  color: white;
+                }
+                i:hover {
+                  color: black;
+                }
+              }
+            }
+            button {
+              i {
+                color: white;
+              }
+              i:hover {
+                color: black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* padding: t, r, b, l */
+.layout-main-container {
+  padding: 6rem 1rem 1rem 2rem;
+}
+
+.layout-sidebar {
+  top: 6rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+}

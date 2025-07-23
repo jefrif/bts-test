@@ -1,0 +1,60 @@
+<p-card header="Todo List">
+  <div style="margin-bottom: 2rem">
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-add"></i>
+    <input type="text" pInputText placeholder="Take a note..." [(ngModel)]="txtTodo"/>
+  </span>
+  <button pButton pRipple label="Add" icon="pi pi-add" class="p-button-help p-ml-2"
+           (click)="onClickAdd()">
+  </button>
+  </div>
+
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab [header]="tab.title" *ngFor="let tab of tabs">
+      <p class="m-0">
+        {{ tab.content }}
+      </p>
+    </p-accordionTab>
+  </p-accordion>
+</p-card>
+
+<p-dialog [header]="dlgHeader" [style]="{width: '50vw'}" [modal]="true"
+          [(visible)]="dlgRegVisible" [breakpoints]="{'960px': '75vw', '640px': '100vw'}">
+
+  <div class="p-fluid p-mt-3">
+    <div class="p-field p-grid">
+      <label for="email" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Email:</label>
+      <div class="p-col-12 p-md-10">
+        <input pInputText id="email" type="text"
+               [(ngModel)]="email" aria-describedby="folderName-help" #foldName>
+      </div>
+    </div>
+    <br/>
+    <div class="p-field p-grid">
+      <label for="username" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">User name:</label>
+      <div class="p-col-12 p-md-10">
+        <input pInputText id="username" type="text"
+               [(ngModel)]="username" aria-describedby="folderName-help" #userName>
+      </div>
+    </div>
+    <br/>
+    <div class="p-field p-grid">
+      <label for="passwd" class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">Password:</label>
+      <div class="p-col-12 p-md-10">
+        <input pInputText id="passwd" type="text"
+               [(ngModel)]="password" aria-describedby="folderName-help" #passWord>
+      </div>
+    </div>
+    <br/>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" icon="pi pi-check" (click)="onOkRegister()"
+            label="OK" class="p-button-raised p-ml-2" style="width: 8rem">
+    </button>
+    <button pButton pRipple type="button" icon="pi pi-times" label="Batal" style="width: 8rem"
+            class="p-button-raised p-button-danger" (click)="dlgRegVisible = false">
+    </button>
+  </ng-template>
+</p-dialog>
